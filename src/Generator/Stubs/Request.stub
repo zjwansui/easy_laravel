@@ -1,0 +1,26 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Http\Controllers\Request\Request;
+
+/**
+ * @OA\Schema(
+ *     title="$title",
+ *     required={$params}
+ * )
+ * Class DummyClass
+ * @package DummyNamespace
+ */
+class DummyClass extends Request
+{
+
+     MEMBER
+
+     public function rules(): array
+       {
+           return [
+            RULES
+           ];
+       }
+}
