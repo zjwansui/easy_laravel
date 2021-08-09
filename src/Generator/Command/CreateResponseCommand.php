@@ -74,7 +74,7 @@ class CreateResponseCommand extends GeneratorCommand
 
     protected function getStub(): string
     {
-        return __DIR__ . '/Stubs/NoResponse.stub';
+        return __DIR__ . '/Stubs/Response.stub';
     }
 
 

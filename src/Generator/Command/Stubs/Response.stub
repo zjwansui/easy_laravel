@@ -2,7 +2,8 @@
 
 namespace DummyNamespace;
 
-use App\Http\Controllers\Response\Response;
+use Zjwansui\EasyLaravel\Generator\BaseResponse;
+use Zjwansui\EasyLaravel\Generator\Response;
 
 /**
  * @OA\Schema(
@@ -15,16 +16,6 @@ use App\Http\Controllers\Response\Response;
 class DummyClass extends Response
 {
      MEMBER
-
-    /**
-     * @param $name
-     * @param $value
-     */
-    public function __set($name, $value)
-    {
-        $this->{$name} = $value;
-    }
-
 }
 
 CLASSES

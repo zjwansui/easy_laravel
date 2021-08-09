@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use App\Http\Controllers\Request\Request;
+use Zjwansui\EasyLaravel\Generator\Request;
 
 /**
  * @OA\Schema(
