@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use App\Http\Controllers\Response\BaseResponse;
+use Zjwansui\EasyLaravel\Generator\BaseResponse;
 use App\Http\Controllers\Response\Response;
 
 /**

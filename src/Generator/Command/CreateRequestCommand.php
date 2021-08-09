@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zjwansui\EasyLaravel\Generator;
+namespace Zjwansui\EasyLaravel\Generator\Command;
 
 
 use Illuminate\Console\GeneratorCommand;
