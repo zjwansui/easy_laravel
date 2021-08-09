@@ -1,0 +1,15 @@
+{
+    "name": "zjwansui/easy_laravel",
+    "autoload": {
+        "psr-4": {
+            "Zjwansui\\EasyLaravel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "zhangjie",
+            "email": "629041893@qq.com"
+        }
+    ],
+    "require": {}
+}
