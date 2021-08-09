@@ -1,5 +1,9 @@
 {
     "name": "zjwansui/easy_laravel",
+    "description": "easy use laravel",
+    "require": {
+        "php": ">=7.4"
+    },
     "autoload": {
         "psr-4": {
             "Zjwansui\\EasyLaravel\\": "src/"
@@ -11,5 +15,4 @@
             "email": "629041893@qq.com"
         }
     ],
-    "require": {}
 }
