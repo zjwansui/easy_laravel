@@ -13,7 +13,7 @@ class CreateRequestCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:request';
+    protected $name = 'make:api-request';
 
     /**
      * The console command description.

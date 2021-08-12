@@ -2,8 +2,7 @@
     "name": "zjwansui/easy_laravel",
     "description": "easy use laravel",
     "require": {
-        "php": ">=7.4",
-      "ext-json": "*"
+        "php": ">=7.4"
     },
     "autoload": {
         "psr-4": {
