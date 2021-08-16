@@ -6,18 +6,19 @@ class DocParser
 {
     private $params = array();
 
-    function parse($doc = '') {
+    function parse($doc = '')
+    {
         if ($doc === '') {
             return $this->params;
         }
         // Get the comment
-        if (preg_match ( '#^/\*\*(.*)\*/#s', $doc, $comment ) === false)
+        if (preg_match('#^/\*\*(.*)\*/#s', $doc, $comment) === false)
             return $this->params;
-        $comment = trim ( $comment [1] );
+        $comment = trim($comment [1]);
         // Get all the lines and strip the * from the first character
-        if (preg_match_all ( '#^\s*\*(.*)#m', $comment, $lines ) === false)
+        if (preg_match_all('#^\s*\*(.*)#m', $comment, $lines) === false)
             return $this->params;
-        $this->parseLines ( $lines [1] );
+        $this->parseLines($lines [1]);
         return $this->params;
     }
 
@@ -38,7 +39,9 @@ class DocParser
             $line = trim($line, '/ ');
             if (!empty($line)) {
                 $arr = explode(' ', $line);
-                $data[] = $arr[2];
+                if (array_key_exists(2, $arr)) {
+                    $data[] = $arr[2];
+                }
             }
         }
         return $data;
