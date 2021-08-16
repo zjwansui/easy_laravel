@@ -23,14 +23,14 @@ class SaveCreator
      */
     public function handle(ModelSaving $event)
     {
-        Auth::getDefaultDriver();
-        $user = Auth::user();
-        $uid = $user->id;
-        $model = $event->model;
-        if (!$model->exists) {
-            if ($model->hasAttribute('created_by')) {
-                $model->created_by = $uid;
-            }
-        }
+//        Auth::getDefaultDriver();
+//        $user = Auth::user();
+//        $uid = $user->id;
+//        $model = $event->model;
+//        if (!$model->exists) {
+//            if ($model->hasAttribute('created_by')) {
+//                $model->created_by = $uid;
+//            }
+//        }
     }
 }
