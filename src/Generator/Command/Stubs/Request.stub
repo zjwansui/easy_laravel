@@ -2,6 +2,7 @@
 
 namespace DummyNamespace;
 
+use Zjwansui\EasyLaravel\Generator\BaseResponse;
 use Zjwansui\EasyLaravel\Generator\Request;
 
 /**
@@ -24,3 +25,5 @@ class DummyClass extends Request
            ];
        }
 }
+
+CLASSES
