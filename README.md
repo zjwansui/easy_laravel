@@ -1,4 +1,23 @@
 #### 使用之前
+结合laravel和swagger
+
+`composer require darkaonline/l5-swagger`
+
+`php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"`
+
+```php
+// controller.php
+/**
+ * @OA\Info (
+ *     title="example-laravel-8.x",
+ *     version="1.0"
+ * )
+ */
+```
+
+`php artisan l5-swagger:generate`
+
+
 
 ###### 使用response  request
 

@@ -190,7 +190,20 @@ EOF;
      *           ),
      *         ),\n
 EOF;
-                } else {
+                } elseif($datum['typeName'] === 'array') {
+                    $itemSwagger = $this->_getSwagger($datum['type']);
+                    $itemSwagger = rtrim($itemSwagger);
+                    $swaggers .= <<<EOF
+     *        @OA\Property (
+     *         property="$paramName",
+     *         type="$paramType",
+     *         description="$paramDes",
+     *            @OA\Items(
+$itemSwagger
+     *         ),
+     *         ),\n
+EOF;
+                }else{
                     $itemSwagger = $this->_getSwagger($datum['type']);
                     $itemSwagger = rtrim($itemSwagger);
                     $swaggers .= <<<EOF
