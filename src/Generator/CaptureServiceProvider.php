@@ -15,7 +15,7 @@ class CaptureServiceProvider extends ArtisanServiceProvider
 {
 
     protected $selfCommands = [
-        'CreateResponse'=>'command.response.make',
+        'CreateResponse'=>'command.api_response.make',
         'CreateRequest'=>'command.api_request.make',
     ];
 
@@ -35,7 +35,7 @@ class CaptureServiceProvider extends ArtisanServiceProvider
 
     protected function registerCreateResponseCommand()
     {
-        $this->app->singleton('command.response.make', function ($app) {
+        $this->app->singleton('command.api_response.make', function ($app) {
             return new CreateResponseCommand($app['files']);
         });
     }

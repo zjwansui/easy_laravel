@@ -17,7 +17,7 @@ class CreateResponseCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:response';
+    protected $name = 'make:api-response';
 
     /**
      * The console command description.
@@ -178,9 +178,22 @@ EOF;
             $paramDes = $datum['des'];
 
             if (in_array($datum['typeName'], ['object', 'array'])) {
-                $itemSwagger = $this->_getSwagger($datum['type']);
-                $itemSwagger = rtrim($itemSwagger);
-                $swaggers .= <<<EOF
+                if (array_key_exists('latType', $datum)) {
+                    $latType = $datum['latType'];
+                    $swaggers .= <<<EOF
+     *        @OA\Property (
+     *         property="$paramName",
+     *         type="$paramType",
+     *         description="$paramDes",
+     *            @OA\Items(
+     *          type="$latType",
+     *           ),
+     *         ),\n
+EOF;
+                } else {
+                    $itemSwagger = $this->_getSwagger($datum['type']);
+                    $itemSwagger = rtrim($itemSwagger);
+                    $swaggers .= <<<EOF
      *        @OA\Property (
      *         property="$paramName",
      *         type="$paramType",
@@ -188,6 +201,8 @@ EOF;
 $itemSwagger
      *         ),
 EOF;
+                }
+
             } else {
                 $swaggers .= <<<EOF
      *        @OA\Property (
@@ -205,12 +220,31 @@ EOF;
     private function _getParams($paramName): void
     {
         $number = $this->ask($paramName . '里面几个参数？');
+        if ($number === 0) {
+            return;
+        }
         for ($i = 0; $i < $number; $i++) {
             $param = $this->ask($paramName . '中1个参数名字');
             $type = $this->anticipate('参数类型', ['string', 'integer', 'object', 'array', 'date', 'timestamp', 'bool'], 'string');
             $description = $this->ask('描述');
-            $required = $this->choice('参数是不是必反', ['yes', 'no'], 'yes');
+            $required = $this->choice('参数是不是必反', ['no', 'yes'], 'no');
+
             if ($type === 'object' || $type === 'array') {
+                if ($type === 'array') {
+                    $arrayLatitude = $this->choice('数组是否一维', ['no', 'yes'], 'no');
+                    if ($arrayLatitude === 'yes') {
+                        $latType = $this->choice("$param 数组类型", ['string', 'integer'], 'string');
+                        self::$params[$paramName][] = [
+                            'wh' => $required === 'yes' ? ' ' : '|null',
+                            'type' => $type,
+                            'typeName' => $type,
+                            'name' => $param,
+                            'des' => $description,
+                            'latType' => $latType
+                        ];
+                        continue;
+                    }
+                }
                 $name = ucfirst($param);
                 self::$params[$paramName][] = [
                     'wh' => $required === 'yes' ? ' ' : '|null',

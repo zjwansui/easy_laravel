@@ -26,6 +26,16 @@ CheckRules::class,
 
 ###### 添加中间件
 
-```phpregexp
+```php
+//app/Http/Kernel.php
+// $routeMiddleware 注册
+
+  protected $routeMiddleware = [
+        // ...
+        'request'=>RegisterRequest::class
+    ];
+
+// route
+Route::middleware('request')->get('/test',[TestController::class,'test']);
 
 ```
