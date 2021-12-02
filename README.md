@@ -23,3 +23,9 @@ ModelSaving::class => [
 CheckRules::class,
 ],]
 ```
+
+###### 添加中间件
+
+```phpregexp
+
+```
