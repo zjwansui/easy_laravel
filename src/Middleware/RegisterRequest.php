@@ -43,6 +43,9 @@ class RegisterRequest
         $reflectionClass = new \ReflectionClass($className);
         $reflectionMethod = $reflectionClass->getMethod($methodName);
         $parameters = $reflectionMethod->getParameters();
+        if (empty($parameters)) {
+            return $next($request);
+        }
 //        $parameter = $this->arrayOperation->setArray($parameters)->get(0);
         $parameter = current($parameters);
         $reflectionRequestClass = $parameter->getClass();
@@ -73,6 +76,9 @@ class RegisterRequest
         } catch (ClassPropertyException $error) {//参数类型错误
             $apiResponse = new ApiResponse($error->getMessage(), StatusCode::CLIENT_BAD_REQUEST);
             return Response::json($apiResponse, StatusCode::CLIENT_BAD_REQUEST);
+        } catch (ValidationException $validationException) {
+            $apiResponse = new ApiResponse($validator->errors()->first(), StatusCode::SERVER_INTERNAL_ERROR);
+            return Response::json($apiResponse, StatusCode::SERVER_INTERNAL_ERROR);
         } catch (Exception $e) {
             $apiResponse = new ApiResponse("Service Internet Error", StatusCode::SERVER_INTERNAL_ERROR);
             return Response::json($apiResponse, StatusCode::SERVER_INTERNAL_ERROR);
@@ -81,7 +87,7 @@ class RegisterRequest
         return $next($request);
     }
 
-    private function filterParam (&$param)
+    private function filterParam(&$param)
     {
         foreach ($param as $k => $v) {
             if (is_null($v) || $v === '') {
