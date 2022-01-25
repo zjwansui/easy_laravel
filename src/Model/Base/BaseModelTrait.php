@@ -9,60 +9,57 @@ use Zjwansui\EasyLaravel\Model\SearchTools\OrderByFields;
 
 trait BaseModelTrait
 {
-//    private $model;
-//
-//    public function __construct()
-//    {
-//        $this->model = new self();
-//        // 是否提出删除的
-//    }
+    /** 使用方法 **/
+    //        $user = NgoUserManager::store($a);
+    //        $user =  NgoUser::find("61cec0886c017202c7323eb3");
+    //        $user = NgoUserManager::edit($a, '61cec1d16c017202c7323eb4');
+    //        $userId = NgoUserManager::remove('61cec1d16c017202c7323eb4');
 
-    public function findById($id, $select = '*'): self
+    protected static function beforeStore(&$data): void
     {
-        return self::select($select)->find($id);
+        // 处理新增之前的特殊情况 可特殊覆盖
     }
 
-    public function createNew(self $model): self
+    public static function store($data): self
     {
-        return self::create($model);
+        self::beforeStore($data);
+        return self::create($data);
     }
 
-    public function edit($id, $update): self
+    protected static function beforeUpdate(&$data, $id): void
     {
+        // 可特殊覆盖
+        $data = Arr::except($data, ['_id', 'created_at']);
+    }
+
+    public static function edit($data, $id): ?self
+    {
+        self::beforeUpdate($data, $id);
         $model = self::find($id);
-        $model->update($update);
-        $model->refresh();
-        return $model;
+        if (!$model) {
+            return null;
+        }
+        $result = $model->update($data);
+
+        if (!$result) {
+            return null;
+        }
+        return $model->refresh();
     }
 
-    public function del($id, $soft = true): ?bool
+    public static function show($id): ?self
     {
-        $model = $this->model->find($id);
-        if ($soft) {
-            $res = $model->destory();
-        } else {
-            $res = $model->update(['deleted_at' => time()]);
-        }
-        return $res;
+        return self::find($id);
     }
 
-    public function findCountAndList($where = [], OrderByFields $orders = null, $select = '*', $pageSize = 10): Page
-    {
-        $query = self::select($select);
-        if ($where) {
-            $query = $query->where($where);
-        }
-        if ($orders) {
-            foreach ($orders->orderByFields as $order) {
-                $query = $query->orderBy($order->field, $order->sort);
-            }
-        }
-//        return $query->paginate($pageSize, '*', 'page', $page)->toPage();
-        return $query->paginate($pageSize)->toPage();
-    }
-
-    public function beforeUpdate()
+    public static function remove($id)
     {
 
+        $deleted = 1 === self::destroy($id);
+        if ($deleted) {
+            return $id;
+        }
+        return null;
     }
+
 }
