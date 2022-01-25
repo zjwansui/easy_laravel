@@ -4,6 +4,8 @@
 namespace Zjwansui\EasyLaravel\Model\Base;
 
 
+use Zjwansui\EasyLaravel\Model\Helper\Builder;
+use Zjwansui\EasyLaravel\Model\Helper\Collection;
 use Zjwansui\EasyLaravel\Model\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
