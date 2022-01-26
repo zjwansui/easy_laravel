@@ -2,7 +2,6 @@
 
 namespace Zjwansui\EasyLaravel\Model\Listeners;
 
-use Illuminate\Support\Facades\Auth;
 use Zjwansui\EasyLaravel\Model\Events\ModelSaving;
 
 class SaveCreator
@@ -23,14 +22,16 @@ class SaveCreator
      */
     public function handle(ModelSaving $event)
     {
-//        Auth::getDefaultDriver();
-//        $user = Auth::user();
-//        $uid = $user->id;
-//        $model = $event->model;
-//        if (!$model->exists) {
-//            if ($model->hasAttribute('created_by')) {
-//                $model->created_by = $uid;
-//            }
-//        }
+        $uid = \App\Services\Common\Auth::id();
+        $model = $event->model;
+        if (!$model->exists) {
+            if ($model->hasAttribute('created_by')) {
+                $model->created_by = $uid;
+            }
+
+            if ($model->hasAttribute('updated_by')) {
+                $model->updated_by = $uid;
+            }
+        }
     }
 }

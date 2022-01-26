@@ -4,6 +4,7 @@
 namespace Zjwansui\EasyLaravel\Model\Base;
 
 
+use Zjwansui\EasyLaravel\Model\Events\ModelSaving;
 use Zjwansui\EasyLaravel\Model\Helper\Builder;
 use Zjwansui\EasyLaravel\Model\Helper\Collection;
 use Zjwansui\EasyLaravel\Model\Query\Builder as QueryBuilder;
@@ -15,6 +16,8 @@ class BaseModel extends Model
     protected $connection = 'mysql';
 
     protected $table;
+
+    public const FIELD_ID ='id';
 
 //    protected static bool $serializeDateAsInteger = false;
     // 是否使用自带时间
