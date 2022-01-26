@@ -24,7 +24,7 @@ class SaveCreatedAt
     {
         $model = $event->model;
         if (!$model->exists && $model->hasAttribute('created_at')) {
-            $model->created_at = date('Y-m-d H:i:s');
+            $model->created_at = time();
         }
     }
 }
