@@ -52,10 +52,14 @@ trait BaseModelTrait
         return self::find($id);
     }
 
+
     public static function remove($id)
     {
-
-        $deleted = 1 === self::destroy($id);
+        if (self::$softDelete) {
+            $deleted = 1 === self::find($id)->update(['deleted_at' => time()]);
+        } else {
+            $deleted = 1 === self::destroy($id);
+        }
         if ($deleted) {
             return $id;
         }

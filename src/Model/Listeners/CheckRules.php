@@ -24,7 +24,8 @@ class CheckRules
     public function handle(ModelSaving $event)
     {
         if (!$event->model->validate()) {
-            throw new ValidationException($event->model->validator);
+            throw new \Exception('The given data was invalid.' . $event->model->validator->messages()->toJson(JSON_UNESCAPED_UNICODE));
+//            throw new ValidationException($event->model->validator);
         }
     }
 }

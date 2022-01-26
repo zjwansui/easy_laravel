@@ -17,6 +17,9 @@ class BaseModel extends Model
 
     protected $table;
 
+    public static $softDelete = true;
+
+
     public const FIELD_ID ='id';
 
 //    protected static bool $serializeDateAsInteger = false;
