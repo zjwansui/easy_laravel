@@ -22,6 +22,9 @@ class BaseModel extends Model
 
     public const FIELD_ID ='id';
 
+    public const DELETED_AT = 'deleted_at';
+
+
 //    protected static bool $serializeDateAsInteger = false;
     // 是否使用自带时间
     public $timestamps = false;

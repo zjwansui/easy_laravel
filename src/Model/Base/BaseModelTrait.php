@@ -35,7 +35,7 @@ trait BaseModelTrait
     public static function edit($data, $id): ?self
     {
         self::beforeUpdate($data, $id);
-        $model = self::find($id);
+        $model =  self::whereNull(self::DELETED_AT)->find($id);
         if (!$model) {
             return null;
         }
@@ -49,19 +49,20 @@ trait BaseModelTrait
 
     public static function show($id): ?self
     {
-        return self::find($id);
+        return self::whereNull(self::DELETED_AT)->find($id);
     }
 
 
     public static function remove($id)
     {
-        if (self::$softDelete) {
-            $deleted = 1 === self::find($id)->update(['deleted_at' => time()]);
-        } else {
-            $deleted = 1 === self::destroy($id);
+        $model = self::whereNull(self::DELETED_AT)->find($id);
+        if (!$model) {
+            return null;
         }
-        if ($deleted) {
-            return $id;
+        if (self::$softDelete) {
+            return $model->update(['deleted_at' => time()]);
+        } else {
+            return $model->destroy($id);
         }
         return null;
     }
