@@ -6,6 +6,7 @@ namespace Zjwansui\EasyLaravel\Model\Base;
 
 use Zjwansui\EasyLaravel\Model\Page\Page;
 use Zjwansui\EasyLaravel\Model\SearchTools\OrderByFields;
+use Illuminate\Support\Arr;
 
 trait BaseModelTrait
 {
