@@ -4,6 +4,7 @@
 namespace Zjwansui\EasyLaravel\Model\Base;
 
 
+use App\Services\Common\Auth;
 use Zjwansui\EasyLaravel\Model\Page\Page;
 use Zjwansui\EasyLaravel\Model\SearchTools\OrderByFields;
 use Illuminate\Support\Arr;
@@ -24,13 +25,14 @@ trait BaseModelTrait
     public static function store($data): self
     {
         self::beforeStore($data);
-        return self::create($data);
+        return self::create($data)->refresh();
     }
 
     protected static function beforeUpdate(&$data, $id): void
     {
         // 可特殊覆盖
-        $data = Arr::except($data, ['_id', 'created_at']);
+        $data = Arr::add($data, 'updated_by', Auth::id());
+        $data = Arr::add($data, 'updated_at', time());
     }
 
     public static function edit($data, $id): ?self
