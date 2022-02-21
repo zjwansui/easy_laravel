@@ -22,16 +22,20 @@ class SaveCreator
      */
     public function handle(ModelSaving $event)
     {
-        $uid = \App\Services\Common\Auth::id();
-        $model = $event->model;
-        if (!$model->exists) {
-            if ($model->hasAttribute('created_by')) {
-                $model->created_by = $uid;
-            }
+        try {
+            $uid = \App\Services\Common\Auth::id();
+            $model = $event->model;
+            if (!$model->exists) {
+                if ($model->hasAttribute('created_by')) {
+                    $model->created_by = $uid;
+                }
 
-            if ($model->hasAttribute('updated_by')) {
-                $model->updated_by = $uid;
+                if ($model->hasAttribute('updated_by')) {
+                    $model->updated_by = $uid;
+                }
             }
+        }catch (\Exception $exception){
+
         }
     }
 }
