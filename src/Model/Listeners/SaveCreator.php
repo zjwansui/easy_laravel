@@ -35,7 +35,7 @@ class SaveCreator
                 }
             }
         }catch (\Exception $exception){
-
+            // 兼容没有登录的
         }
     }
 }
